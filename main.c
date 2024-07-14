@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <time.h>
 #include <math.h>
 
 void printArray(int arr[], int size);
@@ -26,10 +27,12 @@ int main() {
     int *data = (int *)malloc(size * sizeof(int));
     int *originalData = (int *)malloc(size * sizeof(int)); // To reset data for each sort
 
-    // Prompt the user to enter the elements of the array
-    printf("Enter the elements of the array: ");
+    // Seed for random number generation
+    srand(time(NULL));
+
+    // Generate random elements for the array
     for (int i = 0; i < size; i++) {
-        scanf("%d", &data[i]);
+        data[i] = rand() % 10000; // Random numbers between 0 and 9999
         originalData[i] = data[i]; // Copy original data
     }
 
@@ -90,7 +93,7 @@ int main() {
                 printf("\nSorted array in Ascending Order using Merge Sort\n");
                 printArray(data, size);
                 printf("\nTime taken: %.0f nanoseconds\n", elapsed_ns);
-                printf("Space complexity: %zu bytes\n", memoryUsed + size * sizeof(int));
+                printf("Space complexity: %zu bytes\n", memoryUsed + size * sizeof(int)); // Merge Sort uses O(n) space for merging
                 break;
             case 4:
                 for (int i = 0; i < size; i++) data[i] = originalData[i]; // Reset data
@@ -102,7 +105,7 @@ int main() {
                 printf("\nSorted array in Ascending Order using Quick Sort\n");
                 printArray(data, size);
                 printf("\nTime taken: %.0f nanoseconds\n", elapsed_ns);
-                printf("Space complexity: %zu bytes\n", sizeof(int) * (1 + maxRecursionDepth));
+                printf("Space complexity: %zu bytes\n", sizeof(int) * (1 + maxRecursionDepth)); // Quick Sort uses O(log n) space for recursion stack
                 break;
             case 5:
                 printf("Exiting...\n");
